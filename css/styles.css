@@ -1,0 +1,283 @@
+:root {
+  --default: rgb(67, 67, 67);
+  --men: #25476D;
+  --women: #00D6C0;
+  --both: #a31d5c;
+  --first: #FED28B;
+  font-family: 'Heebo', sans-serif;
+  font-weight: 200;
+  color: var(--default);
+  font-size: 0.9em;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0px;
+  position: relative;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  padding: 0;
+  margin: 0;
+}
+
+h1 {
+  font-weight: 900;
+  font-size: 3em;
+}
+
+#intro {
+  position: relative;
+  padding: 20px;
+  height: 100vh;
+  text-align: center;
+}
+
+#intro .intro-content {
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+  top: 40%;
+  transform: translateY(-50%);
+}
+
+#intro .intro-content .logo-container {
+  height: 100px;
+}
+
+#intro .intro-content .logo-container img {
+  height: 100%;
+}
+
+
+#intro .intro-credits {
+  color: rgb(186, 186, 186);
+  margin-top: 10px;
+}
+
+.scroll-graphic {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.scroll-graphic .step {
+  position: relative;
+  height: 100vh;
+  margin-bottom: 100vh;
+  text-align: center;
+}
+
+.scroll-graphic .step p {
+  padding: 20px;
+  max-width: 500px;
+  border-radius: 20px;
+  display: inline-block;
+  font-size: 1.2em;
+  mix-blend-mode: luminosity;
+  color: #cccccc;
+}
+
+#graph-2 .scroll-graphic .step {
+  width: 30vw;
+  margin-left: 7vw;
+}
+
+#graph-3 .scroll-graphic .step {
+  width: 16vw;
+  margin-left: 82vw;
+}
+
+.scroll-graphic .first {
+  height: 50vh;
+
+}
+
+.scroll-graphic #chart-1,  
+.scroll-graphic #chart-2,
+.scroll-graphic #chart-3 {
+  position: sticky;
+  top: 0;
+  left: 0;
+  height: 100vh;
+}
+
+.scroll-graphic #select-year-btn {
+  position: fixed;
+  top: 20px;
+  left: 50vw;
+  transform: translateX(-50%);
+  z-index: 100;
+}
+
+
+.scroll-graphic #chart-1 .chart-men {
+  z-index: -1;
+}
+
+.scroll-graphic #chart-1 svg {
+  position: absolute;
+  bottom: 0;
+}
+
+.scroll-graphic #chart-1 svg .label {
+  mix-blend-mode: luminosity;
+  stroke: #cccccc;
+}
+
+
+.scroll-graphic #chart-1 svg .line {
+  position: sticky;
+  top: 0;
+  left: 0;
+  height: 100vh;
+}
+
+.scroll-graphic #chart-1 svg .area-women {
+  fill: var(--women);
+  stroke-width: 0;
+  z-index: 2;
+}
+
+.scroll-graphic #chart-1 svg .area-men {
+  fill: var(--men);
+  stroke-width: 0;
+
+}
+
+.scroll-graphic #chart-1 svg .xAxis,
+.scroll-graphic #chart-1 svg .yAxis {
+  mix-blend-mode: luminosity;
+  color: #cccccc;
+}
+
+.scroll-graphic #chart-1 svg .xAxis .tick line {
+  height: 4px;
+}
+
+.scroll-graphic #chart-1 svg .xAxis .tick text {
+  font-size: 12px;
+}
+
+.scroll-graphic #chart-1 svg .xAxis .tick:first-of-type text {
+  transform: translateX(14px);
+}
+
+.scroll-graphic #chart-1 svg .xAxis .tick:last-of-type text {
+  transform: translateX(-14px);
+}
+
+.scroll-graphic #chart-1 svg .yAxis .domain,
+.scroll-graphic #chart-1 svg .yAxis .tick:first-of-type text,
+.scroll-graphic #chart-1 svg .yAxis .tick:first-of-type line {
+  display: none;
+}
+
+.scroll-graphic #chart-3-leg {
+  position: fixed;
+  opacity: 0;
+  top: 0;
+  left: 1.5vw;
+  font-size: 12px;
+  color: #cccccc;
+}
+
+.scroll-graphic #chart-3-leg #tick-20 {
+  position: fixed;
+  top: 10.5vh;
+  transform: translateY(-50%);
+}
+
+.scroll-graphic #chart-3-leg #tick-15 {
+  position: fixed;
+  top: 17vh;
+  transform: translateY(-50%);
+}
+
+.scroll-graphic #chart-3-leg #tick-10 {
+  position: fixed;
+  top: 24vh;
+  transform: translateY(-50%);
+}
+
+.scroll-graphic #chart-3-leg #tick-5 {
+  position: fixed;
+  top: 57.5vh;
+  transform: translateY(-50%);
+}
+
+.scroll-graphic #chart-3-leg #tick-1 {
+  position: fixed;
+  top: 84vh;
+  transform: translateY(-50%);
+}
+
+.scroll-graphic #chart-3-leg #tick-05 {
+  position: fixed;
+  top: 90vh;
+  transform: translateY(-50%);
+}
+
+.scroll-graphic #chart-3-leg p::after {
+  content: "";
+  width: 77vw;
+  top: 10px;
+  left: 30px;
+  height: 1px;
+  border:none;
+  border-top: 1px dashed #cccccc;
+  mix-blend-mode: luminosity;
+  position: fixed;
+}
+
+.scroll-graphic #chart-3 svg .xAxis {
+  color: #cccccc;
+}
+
+.scroll-graphic #chart-3 svg .xAxis .tick text {
+  font-size: 12px;
+}
+
+.scroll-graphic #chart-3 svg .xAxis .domain,
+.scroll-graphic #chart-3 svg .xAxis .tick line {
+  display: none;
+
+}
+
+
+#graph-2 .scroll-graphic .middle, 
+#graph-3 .scroll-graphic .middle {
+  width: 100vw;
+  margin-left: 0vw;
+}
+
+.film-ten-budget-label {
+  text-anchor: middle;
+  fill: #6382A5;
+  stroke: none;
+  font-weight: 900;
+}
+
+#long {
+  height: 300vh;
+}
+
+.leg {
+  font-weight: 700;
+}
+
+.wmn {
+  color: var(--women);
+}
+
+.men {
+  color: var(--men);
+}
+
+.firstfilm {
+  color: var(--first);
+}
+
+.both {
+  color: var(--both);
+}
