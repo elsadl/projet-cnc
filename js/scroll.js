@@ -142,13 +142,11 @@ function handleStepEnter(response) {
       return;
     }
   } else if (response.element.getAttribute("data-graph") == "graph-2") {
-    // console.log("2) step", dataStep);
     if (response.direction == "down" && stepParamsGraph2[dataStep] !== 0) {
       if (dataStep == 0) {
         return;
       }
       callCirclesFunction(...stepParamsGraph2[dataStep]);
-      // console.log("3) step", dataStep);
       return;
     }
     if (response.direction == "up" && stepParamsGraph2Reverse[dataStep]) {
@@ -157,19 +155,15 @@ function handleStepEnter(response) {
       return;
     }
   } else if (response.element.getAttribute("data-graph") == "graph-3") {
-    // console.log("2) step", dataStep);
     if (response.direction == "down" && stepParamsGraph3[dataStep] !== 0) {
       if (dataStep == 0) {
         return;
       }
-      console.log("yo", ...stepParamsGraph3[dataStep]);
       callCirclesFunction(...stepParamsGraph3[dataStep]);
       return;
     }
 
-    if (response.direction == "up" && stepParamsGraph3Reverse[dataStep]) {
-        console.log("yo REVERSE!!", ...stepParamsGraph3[dataStep]);
-      
+    if (response.direction == "up" && stepParamsGraph3Reverse[dataStep]) {      
         callCirclesFunction(...stepParamsGraph3Reverse[dataStep]);
       return;
     }
@@ -655,24 +649,11 @@ callGraphFunction(womenDataUrl, "budget", createGraphWomen);
 callGraphFunction(menDataUrl, "total", createGraphMen);
 
 // append the svg object to the body of the page
-// console.log(d3.select("#chart-2"));
 let circlesSvg = d3
   .select("#chart-2")
   .append("svg")
   .attr("width", svgWidth)
   .attr("height", svgHeight);
-
-// let yearGroup = ["2008", "2009", "2010", "2011", "2012", "2013",
-//                     "2014", "2015", "2016", "2017", "2018"];
-
-// let dropdownBtn = d3.select("#chart-2")
-//                     .append("select")
-//                     .selectAll("myOptions")
-//                     .data(yearGroup)
-//                     .enter()
-//                     .append("option")
-//                     .text(d)
-//                     .attr("value", d);
 
 let simulation;
 let node;
@@ -696,16 +677,6 @@ let colorScale = d3
 //["#women", "#men", "#both"]
 
 function createCircles(data) {
-  //let yearGroup = d3.map(data, d => d.year).keys();
-  /*
-    d3.select("#select-year-btn")
-    .selectAll("myOptions")
-    .data(yearGroup)
-    .enter()
-    .append("option")
-    .text(d => d) // text showed in the menu
-    .attr("value", d => d); // corresponding value returned by the button
-*/
 
   // initialization of the circles: all located at the center of the svg area
   node = circlesSvg
@@ -760,24 +731,6 @@ function createCircles(data) {
     node.attr("cx", (d) => d.x).attr("cy", (d) => d.y);
   });
 
-  /* 
-                // essai pour récupérer les x et les y de ch node
-                // problème : ne s'éxecute que si on attend à cette étape que la transition finisse
-                // sinon, renvoie tableau vide
-
-                .on("end", function(d) {
-                    simulation.nodes().forEach(function(node) {
-                        elements.push(
-                            {"name": node.filmName,
-                            "budget": node.filmBudget,
-                            "x": node.x,
-                            "y": node.y}
-                            );
-
-                    })
-                    console.log("elX", elements)
-                });
-                */
 }
 
 function displayCircles(data) {
@@ -938,8 +891,6 @@ function highlightCirclesBudget(data) {
       .attr("opacity", 1);
   });
 
-  // simulation.on("end", function() {
-  // })
 }
 
 function resetCirclesBudget(data) {
@@ -1006,9 +957,6 @@ function updateCirclesByYear(yr, data) {
     .domain(d3.extent(data, (d) => parseFloat(d.filmBudget)))
     .range([0.1, 60]);
 
-  console.log("he ho tu fais quoi là");
-  // Give these new data to update line
-
   node
     .style("fill", (d) => colorScale(d.realGender))
     .style("opacity", 0.2)
@@ -1070,13 +1018,6 @@ function updateCirclesByYear(yr, data) {
 function callCirclesFunction(dataUrl, functionName) {
   d3.csv(dataUrl).then(function (data) {
     functionName(data);
-
-    // d3.select("#select-year-btn").on("change", function(d) {
-    //     // recover the option that has been chosen
-    //     let selectedOption = d3.select(this).property("value");
-    //     // run the updateChart function with this selected option
-    //     updateCirclesByYear(selectedOption, data);
-    // })
   });
 }
 
@@ -1085,7 +1026,6 @@ callCirclesFunction(dataUrl2018, createCircles);
 let dot;
 
 function graphYears(data) {
-  console.log("coucou graph 3 ?");
 
   let svg = d3
     .select("#chart-3")
@@ -1102,14 +1042,6 @@ function graphYears(data) {
 
   // axe x
   let xAxis = d3.axisTop(scaleX).tickFormat(d3.format(".0f"));
-
-  // échelle y
-  // let scaleY = d3.scaleQuantile()
-  //     .domain(d3.extent(data, d => d.filmBudget))
-  //     // .range([svgHeight - 4*svgPadding.y, 13*svgHeight/14, 12*svgHeight/14, 11*svgHeight/14,
-  //     //     10*svgHeight/14, 9*svgHeight/14, 8*svgHeight/14, 7*svgHeight/14,
-  //     //     6*svgHeight/14, 5*svgHeight/14, 4*svgHeight/14, 3*svgHeight/14,
-  //     //     2*svgHeight/14, 1*svgHeight/14, 2*svgPadding.y]);
 
   let scaleHeight = svgHeight - 2 * svgPadding.y;
   let div = 14;
@@ -1155,11 +1087,6 @@ function graphYears(data) {
     .classed("xAxis", true)
     .call(xAxis)
     .attr("transform", `translate(0 40)`);
-
-  // append axe y
-  // svg.append("g")
-  //     .classed("yAxis", true)
-  //     .call(yAxis);
 
   dot = svg
     .append("g")
@@ -1433,152 +1360,3 @@ function legDisplayNone() {
     .style("display", "none");
 }
 
-
-
-// graphique horizontal : abandonné (à suppr)
-
-function createGraphYears(data) {
-  let graphWidth = svgWidth * 30;
-  let jitter = svgHeight / 11 - 40;
-
-  console.log("coucou ?");
-
-  let svg = d3
-    .select("#chart-3")
-    .append("svg")
-    .classed("chart-years", true)
-    .attr("width", graphWidth)
-    .attr("height", svgHeight);
-
-  // échelle x
-  let scaleX = d3
-    .scaleLinear()
-    .domain(d3.extent(data, (d) => parseInt(d.filmBudget)))
-    .range([svgPadding.y, svgPadding.y]);
-
-  // axe x
-  let xAxis = d3.axisTop(scaleX).tickFormat(d3.format(".0f"));
-
-  // échelle y
-  let scaleY = d3
-    .scaleLinear()
-    .domain([2008, 2018])
-    .range([svgPadding.y * 4, svgHeight - svgPadding.y * 4]);
-
-  // axe y
-  let yAxis = d3.axisRight(scaleY).tickFormat(d3.format(".0f"));
-
-  let colorScale = d3
-    .scaleOrdinal()
-    .domain(["F", "M", "F/M"])
-    .range(["#00D6C0", "#25476D", "#a31d5c"]);
-  //["#women", "#men", "#both"]
-
-  // append axe x
-  svg
-    .append("g")
-    .classed("xAxis", true)
-    .call(xAxis)
-    .attr("opacity", 0)
-    .attr("transform", `translate(0 ${svgHeight - svgPadding.y})`);
-
-  // append axe y
-  svg.append("g").classed("yAxis", true).call(yAxis);
-
-  svg
-    .append("g")
-    .selectAll("circle")
-    .data(data)
-    .enter()
-    .append("circle")
-    .attr("class", "movie-dot")
-    .attr("r", 0)
-    .attr("cx", 0)
-    .attr("cy", (d) => scaleY(d.year) - jitter / 2 + Math.random() * jitter)
-    .style("fill", (d) => colorScale(d.realGender))
-    .style("stroke", (d) => colorScale(d.realGender))
-    .style("stroke-opacity", 1)
-    .style("fill-opacity", 0.5)
-    .style("stroke", (d) => colorScale(d.realGender));
-
-  /*
-        .style("stroke-width", 2)
-        .style("stroke", function(d) {
-            if (d.firstFilm == "true") {
-                return "#ffbb33";
-            } else { return "none"; }
-        })*/
-
-  /*.style("opacity", "0.6")
-        .style("fill", "none")
-        .style("stroke-width", 1)
-        .style("stroke", d => colorScale(d.realGender))*/
-}
-
-function distributeGraphYears(data) {
-  let graphWidth = svgWidth * 30;
-  let jitter = 0;
-  let radius = d3
-    .scaleSqrt()
-    .domain(d3.extent(data, (d) => parseFloat(d.filmBudget)))
-    .range([2, 70]);
-
-  let svg = d3.select(".chart-years");
-
-  // échelle x
-  let scaleX = d3
-    .scaleLinear()
-    .domain(d3.extent(data, (d) => parseInt(d.filmBudget)))
-    .range([svgPadding.y, graphWidth - 200]);
-
-  // échelle y
-  let scaleY = d3
-    .scaleLinear()
-    .domain([2008, 2018])
-    .range([svgPadding.y * 4, svgHeight - svgPadding.y * 4]);
-
-  // axe x
-  let xAxis = d3.axisTop(scaleX).tickFormat(d3.format(".0f"));
-
-  // append axe x
-  svg
-    .select(".xAxis")
-    .attr("opacity", 1)
-    .transition()
-    .duration(4000)
-    .call(xAxis);
-
-  svg
-    .selectAll(".movie-dot")
-    .transition()
-    .duration(10)
-    .attr("r", (d) => radius(d.filmBudget))
-    .transition()
-    .duration(10000)
-    .attr("cx", (d) => scaleX(d.filmBudget));
-
-  svg
-    .selectAll(".movie-dot")
-    .data(data)
-    .enter()
-    .append("text")
-    .text((d) => d.filmName)
-    .attr("x", (d) => scaleX(d.filmBudget))
-    .attr("y", (d) => scaleY(d.year))
-    .style("text-anchor", "start");
-}
-
-/*
-
-// fonction responsive
-// à écrire
-
-function updateWindow() {
-    console.log("yo", d3.selectAll("svg"))
-    d3.selectAll("svg").attr("width", window.innerWidth).attr("height", 0.8 * window.innerHeight);
-}
-
-window.addEventListener("resize", updateWindow)
-
-
-*/
