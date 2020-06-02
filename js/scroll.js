@@ -81,7 +81,8 @@ stepParamsGraph2Reverse.push(
   [dataUrl2018, highlightCirclesBudget],
   [dataUrl2018, highlightCirclesWomen],
   [dataUrl2018, highlightCirclesMen],
-  [dataUrl2018, updateCircles]
+  [dataUrl2018, updateCircles],
+  []
 );
 
 // réf fonctions dans l'ordre graph 3
@@ -128,34 +129,32 @@ stepParamsGraph3Reverse.push([dataPerYearUrl, hideGraphYears],
 // appel des fonctions liées au graphique
 // en fonction du step actif
 function handleStepEnter(response) {
-  console.log("reeep", response.element);
   dataStep = response.element.getAttribute("data-step");
   console.log("step", dataStep);
 
   if (response.element.getAttribute("data-graph") == "graph-1") {
-    if (response.direction == "down" && stepParamsGraph1[dataStep]) {
+    if (response.direction == "down" && stepParamsGraph1[dataStep].length > 0) {
       callGraphFunction(...stepParamsGraph1[dataStep]);
       return;
     }
-    if (response.direction == "up" && stepParamsGraph1Reverse[dataStep]) {
+    if (response.direction == "up" && stepParamsGraph1Reverse[dataStep].length > 0) {
       callGraphFunction(...stepParamsGraph1Reverse[dataStep]);
       return;
     }
   } else if (response.element.getAttribute("data-graph") == "graph-2") {
-    if (response.direction == "down" && stepParamsGraph2[dataStep] !== 0) {
+    if (response.direction == "down" && stepParamsGraph2[dataStep].length > 0) {
       if (dataStep == 0) {
         return;
       }
       callCirclesFunction(...stepParamsGraph2[dataStep]);
       return;
     }
-    if (response.direction == "up" && stepParamsGraph2Reverse[dataStep]) {
-      console.log("UP step", dataStep, stepParamsGraph2Reverse[dataStep]);
+    if (response.direction == "up" && stepParamsGraph2Reverse[dataStep].length > 0) {
       callCirclesFunction(...stepParamsGraph2Reverse[dataStep]);
       return;
     }
   } else if (response.element.getAttribute("data-graph") == "graph-3") {
-    if (response.direction == "down" && stepParamsGraph3[dataStep] !== 0) {
+    if (response.direction == "down" && stepParamsGraph3[dataStep].length > 0) {
       if (dataStep == 0) {
         return;
       }
@@ -163,7 +162,7 @@ function handleStepEnter(response) {
       return;
     }
 
-    if (response.direction == "up" && stepParamsGraph3Reverse[dataStep]) {      
+    if (response.direction == "up" && stepParamsGraph3Reverse[dataStep].length > 0) {      
         callCirclesFunction(...stepParamsGraph3Reverse[dataStep]);
       return;
     }
@@ -638,7 +637,6 @@ function reverse2016(data, yMax) {
 function callGraphFunction(dataUrl, domainRef, functionName) {
   d3.csv(dataUrl).then(function (data) {
     let yMax = d3.max(data.map((d) => parseFloat(d[domainRef])));
-    // console.log(yMax)
     functionName(data, yMax);
   });
 }
@@ -750,7 +748,6 @@ function displayCirclesReverse(data) {
 }
 
 function splitCircles(data) {
-  console.log("hehehehehoh ???");
   circlesSvg
     .selectAll(".node")
     .transition("split")
@@ -943,78 +940,6 @@ function resetCirclesSize(data) {
   simulation.alpha(0.1).restart();
 }
 
-function updateCirclesByYear(yr, data) {
-  console.log("année ", yr);
-  console.log(
-    "filtre ",
-    data.filter((d) => d.year == "2011")
-  );
-  node = node.data(data.filter((d) => d.year == yr));
-  node.exit().remove();
-
-  let radius = d3
-    .scaleSqrt()
-    .domain(d3.extent(data, (d) => parseFloat(d.filmBudget)))
-    .range([0.1, 60]);
-
-  node
-    .style("fill", (d) => colorScale(d.realGender))
-    .style("opacity", 0.2)
-    .attr("r", (d) => radius(d.filmBudget));
-
-  let newNode = node
-    .enter()
-    .append("circle")
-    .attr("class", "node")
-    .transition("year-change")
-    .duration(transition)
-    .attr("r", (d) => radius(d.filmBudget))
-    .attr("cx", svgWidth / 2)
-    .attr("cy", svgHeight / 2)
-    .style("opacity", 1)
-    .style("fill", (d) => colorScale(d.realGender));
-
-  node = node.merge(newNode);
-
-  simulation.stop();
-
-  simulation = d3
-    .forceSimulation()
-    .force(
-      "x",
-      d3
-        .forceX()
-        .strength(0.1)
-        .x((d) => xTarget(d.realGender))
-    )
-    .force(
-      "y",
-      d3
-        .forceY()
-        .strength(0.1)
-        .y(svgHeight / 2)
-    )
-    .force(
-      "center",
-      d3
-        .forceCenter()
-        .x(svgWidth / 2)
-        .y(svgHeight / 2)
-    ) // attraction to the center of the svg area
-    .force("charge", d3.forceManyBody().strength(1)) // attraction between one another
-    .force(
-      "collide",
-      d3
-        .forceCollide()
-        .strength(1)
-        .radius((d) => radius(d.filmBudget) + 2)
-    ); // avoids circle overlapping
-
-  simulation.nodes(data.filter((d) => d.year == yr)).on("tick", function (d) {
-    node.attr("cx", (d) => d.x).attr("cy", (d) => d.y);
-  });
-}
-
 function callCirclesFunction(dataUrl, functionName) {
   d3.csv(dataUrl).then(function (data) {
     functionName(data);
@@ -1142,7 +1067,7 @@ function dispGraphYears(data) {
 
   d3.select("#chart-3-leg")
     .transition("leg-appear")
-    .duration(transition)
+    .duration(500)
     .style("opacity", 1);
 
   svg
@@ -1157,7 +1082,7 @@ function dispGraphYearsStroke(data) {
   
     d3.select("#chart-3-leg")
       .transition("leg-rereappear")
-      .duration(transition)
+      .duration(500)
       .style("opacity", 1)
       .style("display", "block");  
   
@@ -1174,7 +1099,7 @@ function hideGraphYears(data) {
 
   d3.select("#chart-3-leg")
     .transition("leg-disappear")
-    .duration(50)
+    .duration(500)
     .style("opacity", 0);
 
   svg
@@ -1188,7 +1113,7 @@ function hideGraphYears(data) {
 function dispGraphYearsLeg(data) {
   d3.select("#chart-3-leg")
     .transition("leg-reappear")
-    .duration(transition / 2)
+    .duration(500)
     .style("opacity", 1);
 }
 
