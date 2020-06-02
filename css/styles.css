@@ -1,11 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@100;300;400;500;700;800;900&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
 :root {
-  --default: rgb(67, 67, 67);
+  --default: #2D2D2D;
+  --light: rgb(186, 186, 186);
   --men: #25476D;
   --women: #00D6C0;
   --both: #a31d5c;
   --first: #FED28B;
   font-family: 'Heebo', sans-serif;
-  font-weight: 200;
+  font-weight: 300;
+  font-size: 24px;
   color: var(--default);
   font-size: 0.9em;
   box-sizing: border-box;
@@ -16,14 +26,25 @@ body {
   position: relative;
 }
 
-h1, h2, h3, h4, h5, h6, p {
+h1, h2, h3, h4, h5, h6 {
   padding: 0;
   margin: 0;
+  font-family: 'neue_montrealbold';
+}
+
+p {
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: var(--default);
 }
 
 h1 {
   font-weight: 900;
   font-size: 3em;
+  padding: 20px 0 0 0;
 }
 
 #intro {
@@ -37,8 +58,14 @@ h1 {
   max-width: 600px;
   margin: 0 auto;
   position: relative;
-  top: 40%;
+  top: 50%;
   transform: translateY(-50%);
+}
+
+#intro .intro-content p {
+  padding: 10px 20px;
+  display: inline-block;
+  font-size: 1.4em;
 }
 
 #intro .intro-content .logo-container {
@@ -49,11 +76,16 @@ h1 {
   height: 100%;
 }
 
-
-#intro .intro-credits {
-  color: rgb(186, 186, 186);
-  margin-top: 10px;
+#intro .intro-content .scroll-arrow {
+  animation: updown 1.5s infinite;
 }
+
+@keyframes updown {
+  0% {transform: translateY(0px)}
+  75% {transform: translateY(20px)}
+  100% {transform: translateY(0px)}
+}
+
 
 .scroll-graphic {
   position: relative;
@@ -71,11 +103,10 @@ h1 {
 .scroll-graphic .step p {
   padding: 20px;
   max-width: 500px;
-  border-radius: 20px;
   display: inline-block;
-  font-size: 1.2em;
+  font-size: 1.4em;
   mix-blend-mode: luminosity;
-  color: #cccccc;
+  color: var(--light);
 }
 
 #graph-2 .scroll-graphic .step {
@@ -87,6 +118,9 @@ h1 {
   width: 16vw;
   margin-left: 82vw;
 }
+
+
+
 
 .scroll-graphic .first {
   height: 50vh;
@@ -122,7 +156,7 @@ h1 {
 
 .scroll-graphic #chart-1 svg .label {
   mix-blend-mode: luminosity;
-  stroke: #cccccc;
+  fill: var(--light);
 }
 
 
@@ -148,7 +182,8 @@ h1 {
 .scroll-graphic #chart-1 svg .xAxis,
 .scroll-graphic #chart-1 svg .yAxis {
   mix-blend-mode: luminosity;
-  color: #cccccc;
+  color: var(--light);
+  font-size: 1em;
 }
 
 .scroll-graphic #chart-1 svg .xAxis .tick line {
@@ -156,7 +191,7 @@ h1 {
 }
 
 .scroll-graphic #chart-1 svg .xAxis .tick text {
-  font-size: 12px;
+  font-size: 1em;
 }
 
 .scroll-graphic #chart-1 svg .xAxis .tick:first-of-type text {
@@ -178,8 +213,8 @@ h1 {
   opacity: 0;
   top: 0;
   left: 1.5vw;
-  font-size: 12px;
-  color: #cccccc;
+  font-size: 1em;
+  color: var(--light);
 }
 
 .scroll-graphic #chart-3-leg #tick-20 {
@@ -222,20 +257,18 @@ h1 {
   content: "";
   width: 77vw;
   top: 10px;
-  left: 30px;
+  left: 40px;
   height: 1px;
   border:none;
-  border-top: 1px dashed #cccccc;
+  border-top: 1px dashed var(--light);
   mix-blend-mode: luminosity;
   position: fixed;
+  opacity: 1;
 }
 
 .scroll-graphic #chart-3 svg .xAxis {
-  color: #cccccc;
-}
-
-.scroll-graphic #chart-3 svg .xAxis .tick text {
-  font-size: 12px;
+  color: var(--light);
+  font-size: 1em;
 }
 
 .scroll-graphic #chart-3 svg .xAxis .domain,
@@ -274,10 +307,149 @@ h1 {
   color: var(--men);
 }
 
-.firstfilm {
-  color: var(--first);
-}
-
 .both {
   color: var(--both);
+}
+
+.outro {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.outro .step {
+  position: relative;
+  height: 100vh;
+  text-align: center;
+}
+
+.outro .step p {
+  padding: 20px;
+  max-width: 500px;
+  display: inline-block;
+  mix-blend-mode: luminosity;
+  color: var(--light);
+  font-size: 1.8em;
+}
+
+
+footer {
+  min-height: 85vh;
+  background-color: rgb(247, 247, 247);
+  z-index: 2;
+  padding: 40px;
+}
+
+footer .footer-top {
+  font-size: 1.6em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1100px;
+}
+
+footer .footer-top p {
+  max-width: 800px;
+}
+
+footer .footer-top #back-to-top {
+  font-size: 1.4em;
+  transition: all 200ms ease-out;
+}
+
+footer .footer-top #back-to-top:hover {
+  transform: translateY(-10px);
+}
+
+footer .footer-top #back-to-top::after,
+footer .footer-top #back-to-top::before {
+  display: none;
+}
+
+footer ul {
+  margin: 0;
+  padding: 0;
+}
+
+footer ul li {
+  margin: 0;
+  padding: 5px 0;
+  list-style: none;
+}
+
+footer ul li a::before, 
+footer ul li a::after {
+  display: none;
+}
+
+footer ul li a:hover {
+  transform: translateX(20px);
+}
+
+footer p {
+  max-width: 1000px;
+}
+
+footer ul {
+  max-width: 450px;
+}
+
+footer h4 {
+  letter-spacing: 0.5px;
+  margin-top: 20px;
+  padding: 10px 0;
+  font-size: 1.2em;
+}
+
+footer a {
+  position: relative;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 400ms ease-out;
+}
+
+footer a::after,
+footer a::before {
+  content: "";
+  display: block;
+    position: absolute;
+    width: 50%;
+    bottom: 2px;
+    height: 1px;
+    background-color: var(--default);
+    transition: width 400ms ease-in-out;
+}
+
+footer a::after {
+  right: 0;
+}
+
+
+footer a:hover::after,
+footer a:hover::before {
+    width: 0%;
+}
+
+footer .merci {
+  margin-top: 40px;
+  font-weight: 500;
+}
+
+
+
+/* gérer débordement petits écrans graph 3 */
+@media screen and (max-width: 800px) {
+
+  #graph-3 .scroll-graphic .step {
+    width: 16vw;
+    margin-left: 78vw;
+  }
+  
+  #graph-3 .scroll-graphic .step p {
+    padding: 0px;
+  }
+
+  .scroll-graphic #chart-3-leg p::after {
+    width: 68vw;
+  }
 }

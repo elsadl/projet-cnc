@@ -95,6 +95,7 @@ stepParamsGraph3.push([],
     [dataPerYearUrl, highlightVeryBigBudget],
     [dataPerYearUrl, highlightBigBudgetMen],
     [dataPerYearUrl, resetOpacityGraphYears],
+    [],
     [dataPerYearUrl, highlightFirstFilms],
     [],
     [dataPerYearUrl, highlightFirstFilmsBigBudget],
@@ -111,6 +112,7 @@ stepParamsGraph3Reverse.push([dataPerYearUrl, hideGraphYears],
     [dataPerYearUrl, highlightBigBudget],
     [dataPerYearUrl, highlightVeryBigBudget],
     [dataPerYearUrl, highlightBigBudgetMen],
+    [],
     [dataPerYearUrl, resetOpacityStrokeGraphYears],
     [],
     [dataPerYearUrl, highlightFirstFilms],
@@ -119,13 +121,14 @@ stepParamsGraph3Reverse.push([dataPerYearUrl, hideGraphYears],
     [dataPerYearUrl, resetOpacityGraphYears],
     [dataPerYearUrl, highlightFirstFilmsWomen],
     [dataPerYearUrl, highlightFirstFilmsMen],
-    [],
-    [dataPerYearUrl, dispGraphYearsStroke]
+    [dataPerYearUrl, dispGraphYearsStroke],
+    []
     )
 
 // appel des fonctions liées au graphique
 // en fonction du step actif
 function handleStepEnter(response) {
+  console.log("reeep", response.element);
   dataStep = response.element.getAttribute("data-step");
   console.log("step", dataStep);
 
@@ -169,6 +172,10 @@ function handleStepEnter(response) {
       
         callCirclesFunction(...stepParamsGraph3Reverse[dataStep]);
       return;
+    }
+  } else if (response.element.getAttribute("data-graph") == "outro") {
+    if (response.direction == "down") {
+      legDisplayNone();
     }
   }
 }
@@ -243,6 +250,7 @@ function createGraphWomen(data, yMax) {
     .attr("y", svgHeight + 10)
     .attr("x", 10)
     .attr("dy", "1em")
+    .attr("font-size", "1.2em")
     .text("Budget, en millions d'euros");
 }
 
@@ -1146,7 +1154,7 @@ function graphYears(data) {
     .append("g")
     .classed("xAxis", true)
     .call(xAxis)
-    .attr("transform", `translate(0 ${svgHeight})`);
+    .attr("transform", `translate(0 40)`);
 
   // append axe y
   // svg.append("g")
@@ -1166,7 +1174,7 @@ function graphYears(data) {
     .style("fill", (d) => colorScale(d.realGender))
     .style("stroke", function (d) {
       if (d.firstFilm == "true") {
-        return "orange";
+        return colorScale(d.realGender);
       } else {
         return "none";
       }
@@ -1221,9 +1229,10 @@ function dispGraphYearsStroke(data) {
     let svg = d3.select(".chart-years");
   
     d3.select("#chart-3-leg")
-      .transition("leg-appear")
+      .transition("leg-rereappear")
       .duration(transition)
-      .style("opacity", 1);
+      .style("opacity", 1)
+      .style("display", "block");  
   
     svg
       .selectAll(".movie-dot")
@@ -1238,7 +1247,7 @@ function hideGraphYears(data) {
 
   d3.select("#chart-3-leg")
     .transition("leg-disappear")
-    .duration(100)
+    .duration(50)
     .style("opacity", 0);
 
   svg
@@ -1418,6 +1427,13 @@ function callYearsFunction(dataUrl, functionName) {
 }
 
 callYearsFunction(dataPerYearUrl, graphYears);
+
+function legDisplayNone() {
+  d3.select("#chart-3-leg")
+    .style("display", "none");
+}
+
+
 
 // graphique horizontal : abandonné (à suppr)
 
