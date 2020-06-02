@@ -9,10 +9,10 @@ let svgPadding = { x: 0, y: 20 };
 let transition = 2000;
 
 // données
-let womenDataUrl = "/projet-cnc/data/data-women.csv";
-let menDataUrl = "/projet-cnc/data/data-men.csv";
-let dataUrl2018 = "/projet-cnc/data/data-2018.csv";
-let dataPerYearUrl = "/projet-cnc/data/data-per-year-2.csv";
+let womenDataUrl = "../data/data-women.csv";
+let menDataUrl = "../data/data-men.csv";
+let dataUrl2018 = "../data/data-2018.csv";
+let dataPerYearUrl = "../data/data-per-year-2.csv";
 
 // préparation lancement automatique des fonctions
 // en fonction du step actif
