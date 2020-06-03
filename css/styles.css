@@ -353,7 +353,6 @@ footer .footer-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: 1100px;
 }
 
 footer .footer-top p {
@@ -363,6 +362,7 @@ footer .footer-top p {
 footer .footer-top #back-to-top {
   font-size: 1.4em;
   transition: all 200ms ease-out;
+  margin-bottom: 5vw;
 }
 
 footer .footer-top #back-to-top:hover {
