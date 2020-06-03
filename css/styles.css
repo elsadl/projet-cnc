@@ -131,6 +131,10 @@ h1 {
 .scroll-graphic #chart-2,
 .scroll-graphic #chart-3 {
   position: sticky;
+  position: -webkit-sticky;
+  position: -moz-sticky;
+  position: -ms-sticky;
+  position: -o-sticky;
   top: 0;
   left: 0;
   height: 100vh;
@@ -162,6 +166,10 @@ h1 {
 
 .scroll-graphic #chart-1 svg .line {
   position: sticky;
+  position: -webkit-sticky;
+  position: -moz-sticky;
+  position: -ms-sticky;
+  position: -o-sticky;
   top: 0;
   left: 0;
   height: 100vh;
