@@ -203,11 +203,11 @@ h1 {
 }
 
 .scroll-graphic #chart-1 svg .xAxis .tick:first-of-type text {
-  transform: translateX(1em);
+  transform: translateX(1.5em);
 }
 
 .scroll-graphic #chart-1 svg .xAxis .tick:last-of-type text {
-  transform: translateX(-1em);
+  transform: translateX(-1.5em);
 }
 
 .scroll-graphic #chart-1 svg .yAxis .domain,
